@@ -2,7 +2,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 header('Access-Control-Allow-Origin: *'); 
-header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+header('Access-Control-Allow-Headers: Content-Type');
 
 require '../vendor/autoload.php';
 
@@ -20,11 +20,11 @@ $app->get('/expenses', function (Request $request, Response $response, array $ar
     $option = [];
     $read = new MongoDB\Driver\Query($filter, $option);
     
-    $all_incomes = $conn->executeQuery("$dbname.expenses", $read);
+    $all_expenses = $conn->executeQuery("$dbname.expenses", $read);
     
     $expenses_arr = [];
 
-    foreach ($all_incomes as $exp) {
+    foreach ($all_expenses as $exp) {
         $expense = array(
             'opis' => $exp->opis,
             'iznos' => $exp->iznos
